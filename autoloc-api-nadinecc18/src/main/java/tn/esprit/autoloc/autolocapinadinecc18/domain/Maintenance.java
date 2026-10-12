@@ -1,11 +1,6 @@
 package tn.esprit.autoloc.autolocapinadinecc18.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +23,12 @@ public class Maintenance {
     @Column(nullable = false)
     private LocalDate dateDebut;
 
-    // nullable : une maintenance peut être encore en cours
     private LocalDate dateFin;
 
     @Column(length = 255)
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_vehicule")
+    private Vehicule vehicule;
 }
