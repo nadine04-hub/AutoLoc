@@ -1,34 +1,26 @@
 package tn.esprit.autoloc.autolocapinadinecc18.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "maintenance")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
 public class Maintenance {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
-
-    @Column(nullable = false)
-    private LocalDate dateDebut;
-
-    private LocalDate dateFin;
-
-    @Column(length = 255)
-    private String description;
+    Long idMaintenance;
+    LocalDate dateDebut;
+    LocalDate dateFin;
+    String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_vehicule")
-    private Vehicule vehicule;
+    Vehicule vehicule;
 }

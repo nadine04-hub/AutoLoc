@@ -1,40 +1,31 @@
 package tn.esprit.autoloc.autolocapinadinecc18.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "agence")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
 public class Agence {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    Long idAgence;
+    String nom;
+    String ville;
+    String adresse;
+    String telephone;
 
-    @Column(nullable = false, length = 100)
-    private String nom;
+    @OneToMany(mappedBy = "agence")
+    List<Employe> employes = new ArrayList<>();
 
-    @Column(nullable = false, length = 50)
-    private String ville;
-
-    @Column(nullable = false, length = 150)
-    private String adresse;
-
-    @Column(length = 20)
-    private String telephone;
-
-    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
-    private Set<Employe> employes;
-
-    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
-    private Set<Vehicule> vehicules;
+    @OneToMany(mappedBy = "agence")
+    List<Vehicule> vehicules = new ArrayList<>();
 }

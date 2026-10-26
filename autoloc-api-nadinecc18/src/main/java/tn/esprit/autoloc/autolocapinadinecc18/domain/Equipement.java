@@ -1,28 +1,25 @@
 package tn.esprit.autoloc.autolocapinadinecc18.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "equipement")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
 public class Equipement {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEquipement;
-
-    @Column(nullable = false, unique = true, length = 100)
-    private String libelle;
+    Long idEquipement;
+    String libelle;
 
     @ManyToMany(mappedBy = "equipements", fetch = FetchType.LAZY)
-    private Set<Vehicule> vehicules;
+    Set<Vehicule> vehicules = new HashSet<>();
 }
